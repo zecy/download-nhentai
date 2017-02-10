@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # -*- encoding:utf-8 -*-
 
 import re
@@ -9,8 +10,8 @@ import subprocess
 def main():
 
     title = input('粘贴标题：')
-    count = input('输入页数：')
     url   = input('粘贴连接：')
+    count = input('输入页数：')
 
     if(re.search("nhentai", url)):
         pat     = re.compile(r"https://t.nhentai.net/galleries/(\d+)/\d+t.(jpg|png)")
@@ -42,6 +43,8 @@ def main():
 
     if(stdout == 0):
         os.remove("list.txt")
+        print("共 " + count + " 页下载完成：" + title)
+        os.chdir("cd " + title)
     else:
         print("FUCK！出错了！")
     
