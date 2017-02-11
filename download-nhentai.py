@@ -5,7 +5,7 @@ import re
 import os
 import string
 import shutil
-import subprocess
+import pyperclip
 
 def main():
 
