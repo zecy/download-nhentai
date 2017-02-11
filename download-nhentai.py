@@ -20,9 +20,11 @@ def main():
         linkPre = "https://i.nhentai.net/galleries/"
         links   = []
         for i in range(int(count)):
-            filename = str(i+1).rjust(len(str(count)), '0') + '.' + imgType
-            link = linkPre + comicId + '/' + str(i + 1) + '.' + imgType + '\n out=' + filename + '\n'
+            link = linkPre + comicId + '/' + str(i + 1) + '.' + imgType
             links.append(link)
+        links_out = '\n'.join(links)
+        pyperclip.copy(links_out)
+        print('复制了 ' + count + ' 条网址到剪贴板')
     else:
         print('傻逼，网址不对！')
         return
@@ -34,20 +36,6 @@ def main():
         shutil.rmtree(title)
         os.mkdir(title)
         os.chdir(title)
-
-    f = open("list.txt", "w", encoding="utf-8")
-    f.writelines(links)
-    f.close()
-
-    stdout = subprocess.call("aria2c --dir=. --input-file=list.txt --enable-rpc=false", shell=True)
-
-    if(stdout == 0):
-        os.remove("list.txt")
-        print("共 " + count + " 页下载完成：" + title)
-        os.chdir("cd " + title)
-    else:
-        print("FUCK！出错了！")
-    
 
 if __name__ == '__main__':
     main()
